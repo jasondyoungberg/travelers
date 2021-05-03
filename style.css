@@ -1,0 +1,16 @@
+body {
+	display: grid;
+	margin: 0;
+}
+
+.traveler {
+	width: 600px;
+	height: 500px;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+.traveler video {
+	position: absolute;
+}
