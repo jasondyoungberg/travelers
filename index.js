@@ -70,6 +70,10 @@ travelers.forEach(e=>{
 	e.vid2.style.opacity = 0;
 	e.div.addEventListener('click',()=>{
 		e.status = !e.status;
+		pos = e.song.seek();
+		travelers.forEach(e2=>{
+			e2.song.seek(pos);
+		})
 	})
 })
 
