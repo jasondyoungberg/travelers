@@ -25,3 +25,13 @@ body {
 .traveler video {
 	position: absolute;
 }
+
+.credit {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	font-size: 2.5em;
+	margin: 1em;
+}
