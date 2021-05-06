@@ -3,3 +3,4 @@ gifs
 ffmpeg.exe
 transform.bat
 server
+resources/*.wav
