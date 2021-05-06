@@ -1,6 +1,6 @@
 const volumeTarget = 0.2;
 const volumeSpeed = 0.01;
-const fadeSpeed = volumeSpeed/volumeTarget;
+const fadeSpeed = 0.2;
 
 var travelers = [
 	{
