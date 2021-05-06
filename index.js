@@ -4,61 +4,37 @@ const fadeSpeed = volumeSpeed/volumeTarget;
 
 var travelers = [
 	{
-		song: new Howl({
-			src:['resources/chert.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[0],
 		vid1:document.getElementById('chert-vid1'),
 		vid2:document.getElementById('chert-vid2'),
 		div:document.getElementById('chert'),
 		status:false,
 	},{
-		song:  new Howl({
-			src:['resources/esker.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[1],
 		vid1:document.getElementById('esker-vid1'),
 		vid2:document.getElementById('esker-vid2'),
 		div:document.getElementById('esker'),
 		status:false,
 	},{
-		song:  new Howl({
-			src:['resources/riebeck.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[2],
 		vid1:document.getElementById('riebeck-vid1'),
 		vid2:document.getElementById('riebeck-vid2'),
 		div:document.getElementById('riebeck'),
 		status:false,
 	},{
-		song:  new Howl({
-			src:['resources/gabbro.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[3],
 		vid1:document.getElementById('gabbro-vid1'),
 		vid2:document.getElementById('gabbro-vid2'),
 		div:document.getElementById('gabbro'),
 		status:false,
 	},{
-		song:  new Howl({
-			src:['resources/feldspar.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[4],
 		vid1:document.getElementById('feldspar-vid1'),
 		vid2:document.getElementById('feldspar-vid2'),
 		div:document.getElementById('feldspar'),
 		status:false,
 	},{
-		song:  new Howl({
-			src:['resources/solanum.wav'],
-			loop: true,
-			volume: 0
-		}),
+		song: songs[5],
 		vid1:document.getElementById('solanum-vid1'),
 		vid2:document.getElementById('solanum-vid2'),
 		div:document.getElementById('solanum'),
