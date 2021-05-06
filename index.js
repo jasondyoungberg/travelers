@@ -1,36 +1,64 @@
+const volumeTarget = 0.2;
+const volumeSpeed = 0.01;
+const fadeSpeed = volumeSpeed/volumeTarget;
+
 var travelers = [
 	{
-		song: null,
+		song: new Howl({
+			src:['resources/chert.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('chert-vid1'),
 		vid2:document.getElementById('chert-vid2'),
 		div:document.getElementById('chert'),
 		status:false,
 	},{
-		song: null,
+		song:  new Howl({
+			src:['resources/esker.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('esker-vid1'),
 		vid2:document.getElementById('esker-vid2'),
 		div:document.getElementById('esker'),
 		status:false,
 	},{
-		song: null,
+		song:  new Howl({
+			src:['resources/riebeck.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('riebeck-vid1'),
 		vid2:document.getElementById('riebeck-vid2'),
 		div:document.getElementById('riebeck'),
 		status:false,
 	},{
-		song: null,
+		song:  new Howl({
+			src:['resources/gabbro.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('gabbro-vid1'),
 		vid2:document.getElementById('gabbro-vid2'),
 		div:document.getElementById('gabbro'),
 		status:false,
 	},{
-		song: null,
+		song:  new Howl({
+			src:['resources/feldspar.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('feldspar-vid1'),
 		vid2:document.getElementById('feldspar-vid2'),
 		div:document.getElementById('feldspar'),
 		status:false,
 	},{
-		song: null,
+		song:  new Howl({
+			src:['resources/solanum.wav'],
+			loop: true,
+			volume: 0
+		}),
 		vid1:document.getElementById('solanum-vid1'),
 		vid2:document.getElementById('solanum-vid2'),
 		div:document.getElementById('solanum'),
@@ -42,47 +70,10 @@ travelers.forEach(e=>{
 	e.vid2.style.opacity = 0;
 	e.div.addEventListener('click',()=>{
 		e.status = !e.status;
-		//e.song.muted = status;
 	})
 })
 
 document.addEventListener('click',()=>{
-	travelers[0].song = new Howl({
-		src:['resources/chert.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
-	travelers[1].song = new Howl({
-		src:['resources/esker.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
-	travelers[2].song = new Howl({
-		src:['resources/riebeck.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
-	travelers[3].song = new Howl({
-		src:['resources/gabbro.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
-	travelers[4].song = new Howl({
-		src:['resources/feldspar.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
-	travelers[5].song = new Howl({
-		src:['resources/solanum.wav'],
-		autoplay: false,
-		loop: true,
-		volume: 0
-	}),
 	travelers.forEach(e=>{e.song.play()})
 
 	setInterval(()=>{
@@ -107,8 +98,3 @@ document.addEventListener('click',()=>{
 		})
 	},100)
 },{once:true})
-
-
-const volumeTarget = 0.2;
-const volumeSpeed = 0.01;
-const fadeSpeed = volumeSpeed/volumeTarget;
