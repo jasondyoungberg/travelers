@@ -20,6 +20,7 @@ body {
 	margin: 0;
 	padding: 0;
 	margin: 10px;
+	cursor: pointer;
 }
 
 .traveler video {
@@ -34,4 +35,6 @@ body {
 	bottom: 0px;
 	font-size: 2.5em;
 	margin: 1em;
+	user-select: none;
+	pointer-events: none;
 }
