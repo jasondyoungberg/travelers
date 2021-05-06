@@ -2,5 +2,6 @@ gifs
 .vscode
 ffmpeg.exe
 transform.bat
+transform2.bat
 server
 resources/*.wav
