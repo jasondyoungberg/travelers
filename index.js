@@ -82,7 +82,7 @@ document.addEventListener('click',()=>{
 
 	setInterval(()=>{
 		travelers.forEach(e=>{
-			var v = e.song._volume;
+			var v = e.song.volume();
 			var a = parseFloat(e.vid2.style.opacity);
 	
 			if(e.status && v<volumeTarget)v += volumeSpeed;
