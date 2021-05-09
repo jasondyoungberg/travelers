@@ -1,5 +1,5 @@
-var video = document.getElementsByClassName('video');
-video = [].slice.call(video);
+var icon = document.getElementsByClassName('icon');
+icon = [].slice.call(icon);
 
 var div = document.getElementsByClassName('traveler');
 div = [].slice.call(div);
@@ -7,12 +7,12 @@ div = [].slice.call(div);
 var slider = document.getElementsByClassName('volume');
 slider = [].slice.call(slider);
 
-video.forEach((e,i)=>{
+icon.forEach((e,i)=>{
 	e.addEventListener('click',()=>{
 		state[i] = !state[i];
 		localStorage.state = state;
 
-		var vCurrent = song[i].volume();
+		var vCurrent = song[i].volume() || 0;
 		var vTarget = volume[i];
 		song[i].seek(song[0].seek());
 
