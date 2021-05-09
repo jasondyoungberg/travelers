@@ -7,6 +7,9 @@ div = [].slice.call(div);
 var slider = document.getElementsByClassName('volume');
 slider = [].slice.call(slider);
 
+var sliderIndicator = document.getElementsByClassName('volumeIndicator');
+sliderIndicator = [].slice.call(sliderIndicator);
+
 icon.forEach((e,i)=>{
 	e.addEventListener('click',()=>{
 		state[i] = !state[i];
@@ -31,11 +34,37 @@ icon.forEach((e,i)=>{
 });
 
 slider.forEach((e,i)=>{
-	e.value = volume[i]
+	e.value = volume[i];
+
+	sliderIndicator[i].innerHTML = Math.round(100*e.value)+'%';
+	sliderIndicator[i].style.marginLeft = (520*e.value)+'px';
 	e.addEventListener('input',()=>{
 		volume[i] = e.value;
+
+		sliderIndicator[i].innerHTML = Math.round(100*e.value)+'%';
+		sliderIndicator[i].style.marginLeft = (520*e.value)+'px';
+
+
 		localStorage.volume = volume;
 		if(state[i]){song[i].volume(e.value)}
+
+		if(e.value == 0){
+			state[i] = false;
+			localStorage.state = state;
+
+			song[i].seek(song[0].seek());
+			song[i].volume(0);
+
+			div[i].classList.remove('on');
+		}else{
+			state[i] = true;
+			localStorage.state = state;
+
+			song[i].seek(song[0].seek());
+			song[i].volume(e.value);
+
+			div[i].classList.add('on');
+		}
 	})
 })
 

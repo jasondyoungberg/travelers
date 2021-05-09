@@ -1,4 +1,4 @@
-const fadeTime = 2500;
+const fadeTime = 1000;
 
 var state = localStorage.state || 'false,false,false,false,false,false';
 state = state.split(',');
