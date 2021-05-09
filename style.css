@@ -44,6 +44,7 @@ body {
 	margin: 10px 30px;
 	height: 15px;
 	outline: none;
+	cursor: pointer;
 }
 
 .volumeIndicatorWrapper {
@@ -86,8 +87,10 @@ body {
 	filter: grayscale(100%);
 	transition: filter 500ms;
 	max-width: 100%;
+}
 
-	
+.traveler.muted {
+	cursor: not-allowed;
 }
 
 .traveler.on {

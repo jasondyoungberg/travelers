@@ -12,23 +12,25 @@ sliderIndicator = [].slice.call(sliderIndicator);
 
 icon.forEach((e,i)=>{
 	e.addEventListener('click',()=>{
-		state[i] = !state[i];
-		localStorage.state = state;
-
-		var vCurrent = song[i].volume() || 0;
-		var vTarget = volume[i];
-		song[i].seek(song[0].seek());
-
-		if(state[i]){ // starting
-			song[i].fade(vCurrent,vTarget,
-				fadeTime * (vTarget - vCurrent) / vTarget);
-
-			div[i].classList.add('on');
-		}else{ // ending
-			song[i].fade(vCurrent,0,
-				fadeTime * vCurrent / vTarget);
-
-			div[i].classList.remove('on');
+		if(volume[i]>0){
+			state[i] = !state[i];
+			localStorage.state = state;
+	
+			var vCurrent = song[i].volume() || 0;
+			var vTarget = volume[i];
+			song[i].seek(song[0].seek());
+	
+			if(state[i]){ // starting
+				song[i].fade(vCurrent,vTarget,
+					fadeTime * (vTarget - vCurrent) / vTarget);
+	
+				div[i].classList.add('on');
+			}else{ // ending
+				song[i].fade(vCurrent,0,
+					fadeTime * vCurrent / vTarget);
+	
+				div[i].classList.remove('on');
+			}
 		}
 	});
 });
@@ -46,7 +48,6 @@ slider.forEach((e,i)=>{
 
 
 		localStorage.volume = volume;
-		if(state[i]){song[i].volume(e.value)}
 
 		if(e.value == 0){
 			state[i] = false;
@@ -56,6 +57,7 @@ slider.forEach((e,i)=>{
 			song[i].volume(0);
 
 			div[i].classList.remove('on');
+			div[i].classList.add('muted');
 		}else{
 			state[i] = true;
 			localStorage.state = state;
@@ -64,12 +66,17 @@ slider.forEach((e,i)=>{
 			song[i].volume(e.value);
 
 			div[i].classList.add('on');
+			div[i].classList.remove('muted');
 		}
 	})
 })
 
 state.forEach((e,i)=>{
 	if(e)div[i].classList.add('on');
+});
+
+volume.forEach((e,i)=>{
+	if(e===0)div[i].classList.add('muted');
 });
 
 function start(){
