@@ -1,80 +1,73 @@
-const volumeTarget = 0.2;
-const volumeSpeed = 0.01;
-const fadeSpeed = 0.2;
+var video = document.getElementsByClassName('video');
+video = [].slice.call(video);
 
-var travelers = [
-	{
-		song: songs[0],
-		vid1:document.getElementById('chert-vid1'),
-		vid2:document.getElementById('chert-vid2'),
-		div:document.getElementById('chert'),
-		status:false,
-	},{
-		song: songs[1],
-		vid1:document.getElementById('esker-vid1'),
-		vid2:document.getElementById('esker-vid2'),
-		div:document.getElementById('esker'),
-		status:false,
-	},{
-		song: songs[2],
-		vid1:document.getElementById('riebeck-vid1'),
-		vid2:document.getElementById('riebeck-vid2'),
-		div:document.getElementById('riebeck'),
-		status:false,
-	},{
-		song: songs[3],
-		vid1:document.getElementById('gabbro-vid1'),
-		vid2:document.getElementById('gabbro-vid2'),
-		div:document.getElementById('gabbro'),
-		status:false,
-	},{
-		song: songs[4],
-		vid1:document.getElementById('feldspar-vid1'),
-		vid2:document.getElementById('feldspar-vid2'),
-		div:document.getElementById('feldspar'),
-		status:false,
-	},{
-		song: songs[5],
-		vid1:document.getElementById('solanum-vid1'),
-		vid2:document.getElementById('solanum-vid2'),
-		div:document.getElementById('solanum'),
-		status:false,
-	}
-];
+var div = document.getElementsByClassName('traveler');
+div = [].slice.call(div);
 
-travelers.forEach(e=>{
-	e.vid2.style.opacity = 0;
-	e.div.addEventListener('click',()=>{
-		e.status = !e.status;
-		pos = e.song.seek();
-		travelers.forEach(e2=>{
-			e2.song.seek(pos);
-		})
+var slider = document.getElementsByClassName('volume');
+slider = [].slice.call(slider);
+
+video.forEach((e,i)=>{
+	e.addEventListener('click',()=>{
+		state[i] = !state[i];
+		localStorage.state = state;
+
+		var vCurrent = song[i].volume();
+		var vTarget = volume[i];
+		song[i].seek(song[0].seek());
+
+		if(state[i]){ // starting
+			song[i].fade(vCurrent,vTarget,
+				fadeTime * (vTarget - vCurrent) / vTarget);
+
+			div[i].classList.add('on');
+		}else{ // ending
+			song[i].fade(vCurrent,0,
+				fadeTime * vCurrent / vTarget);
+
+			div[i].classList.remove('on');
+		}
+	});
+});
+
+slider.forEach((e,i)=>{
+	e.value = volume[i]
+	e.addEventListener('input',()=>{
+		volume[i] = e.value;
+		localStorage.volume = volume;
+		if(state[i]){song[i].volume(e.value)}
 	})
 })
 
-document.addEventListener('click',()=>{
-	travelers.forEach(e=>{e.song.play()})
+state.forEach((e,i)=>{
+	if(e)div[i].classList.add('on');
+});
 
-	setInterval(()=>{
-		travelers.forEach(e=>{
-			var v = e.song.volume();
-			var a = parseFloat(e.vid2.style.opacity);
-	
-			if(e.status && v<volumeTarget)v += volumeSpeed;
-			if(!e.status && v>0)v -= volumeSpeed;
-	
-			if(e.status && a<1)a += fadeSpeed;
-			if(!e.status && a>0)a -= fadeSpeed;
-	
-			if(v<0)v=0;
-			if(v>volumeTarget)v=volumeTarget;
-	
-			if(a<0)a=0;
-			if(a>1)a=1;
-	
-			e.song.volume(v);
-			e.vid2.style.opacity = a;
+function start(){
+	try{
+		song.forEach((e,i)=>{
+			e.play();
+			if(state[i])e.fade(0,volume[i],fadeTime);
 		})
-	},100)
-},{once:true})
+		document.getElementById('loader').remove();
+	}catch(err){
+		console.error(err)
+		document.getElementById('loader').innerHTML='Click to start';
+		document.addEventListener('click',()=>{
+			song.forEach((e,i)=>{
+				e.play();
+				if(state[i])e.fade(0,volume[i],fadeTime);
+			})
+			document.getElementById('loader').remove();
+		},{once:true,capture:true})
+	}
+}
+
+function wait(){
+	if(loadState === 0){
+		start();
+	}else{
+		setTimeout(wait);
+	}
+}
+wait();
