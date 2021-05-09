@@ -44,23 +44,14 @@ state.forEach((e,i)=>{
 });
 
 function start(){
-	try{
+	document.getElementById('loader').innerHTML='Click to start';
+	document.addEventListener('click',()=>{
 		song.forEach((e,i)=>{
 			e.play();
 			if(state[i])e.fade(0,volume[i],fadeTime);
 		})
 		document.getElementById('loader').remove();
-	}catch(err){
-		console.error(err)
-		document.getElementById('loader').innerHTML='Click to start';
-		document.addEventListener('click',()=>{
-			song.forEach((e,i)=>{
-				e.play();
-				if(state[i])e.fade(0,volume[i],fadeTime);
-			})
-			document.getElementById('loader').remove();
-		},{once:true,capture:true})
-	}
+	},{once:true,capture:true})
 }
 
 function wait(){
