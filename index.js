@@ -18,7 +18,6 @@ icon.forEach((e,i)=>{
 	
 			var vCurrent = song[i].volume() || 0;
 			var vTarget = volume[i];
-			song[i].seek(song[0].seek());
 	
 			if(state[i]){ // starting
 				song[i].fade(vCurrent,vTarget,
@@ -53,7 +52,6 @@ slider.forEach((e,i)=>{
 			state[i] = false;
 			localStorage.state = state;
 
-			song[i].seek(song[0].seek());
 			song[i].volume(0);
 
 			div[i].classList.remove('on');
@@ -62,7 +60,6 @@ slider.forEach((e,i)=>{
 			state[i] = true;
 			localStorage.state = state;
 
-			song[i].seek(song[0].seek());
 			song[i].volume(e.value);
 
 			div[i].classList.add('on');
@@ -78,6 +75,13 @@ state.forEach((e,i)=>{
 volume.forEach((e,i)=>{
 	if(e===0)div[i].classList.add('muted');
 });
+
+setInterval(()=>{
+	leader = song[0];
+	song.forEach(e=>{
+		e.seek(leader.seek());
+	})
+},1000)
 
 function start(){
 	document.getElementById('loader').innerHTML='Click to start';
