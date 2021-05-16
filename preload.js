@@ -1,4 +1,8 @@
-const fadeTime = 1000;
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+const fadeTime = parseInt(urlParams.get('fade')||'1000',10);
+const seekThreshold = parseFloat(urlParams.get('seek')||'0.01');
 
 var state = localStorage.state || 'false,false,false,false,false,false';
 state = state.split(',');
@@ -19,7 +23,9 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>chert: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[0].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	}),
 	new Howl({
 		src:['resources/esker.ogg','resources/esker.wav'],
@@ -29,7 +35,9 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>esker: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[1].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	}),
 	new Howl({
 		src:['resources/riebeck.ogg','resources/riebeck.wav'],
@@ -39,7 +47,9 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>riebeck: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[2].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	}),
 	new Howl({
 		src:['resources/gabbro.ogg','resources/gabbro.wav'],
@@ -49,7 +59,9 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>gabbro: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[3].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	}),
 	new Howl({
 		src:['resources/feldspar.ogg','resources/feldspar.wav'],
@@ -59,7 +71,9 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>feldspar: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[4].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	}),
 	new Howl({
 		src:['resources/solanum.ogg','resources/solanum.wav'],
@@ -69,6 +83,8 @@ var song = [
 		onloaderror:err=>{
 			document.getElementById('loader').innerHTML = 
 			`ERROR<p>solanum: ${err}</p>`
-		}
+		},
+		onstop:i=>{song[5].play()},
+		onplayerror:(i,e)=>{console.error(e)}
 	})
 ];

@@ -11,6 +11,10 @@ var sliderIndicator = document.getElementsByClassName('volumeIndicator');
 sliderIndicator = [].slice.call(sliderIndicator);
 
 icon.forEach((e,i)=>{
+	if(urlParams.get('gif') !== null){
+		e.src = e.src.replace('.jpg', '.gif')
+	}
+
 	e.addEventListener('click',()=>{
 		if(volume[i]>0){
 			state[i] = !state[i];
@@ -76,13 +80,6 @@ volume.forEach((e,i)=>{
 	if(e===0)div[i].classList.add('muted');
 });
 
-setInterval(()=>{
-	leader = song[0];
-	song.forEach(e=>{
-		e.seek(leader.seek());
-	})
-},1000)
-
 function start(){
 	document.getElementById('loader').innerHTML='Click to start';
 	document.addEventListener('click',()=>{
@@ -91,6 +88,22 @@ function start(){
 			if(state[i])e.fade(0,volume[i],fadeTime);
 		})
 		document.getElementById('loader').remove();
+
+		setInterval(()=>{
+			song.forEach(e=>{
+				if(!e.playing()){
+					e.play()
+				}
+			})
+
+			t = song[0].seek();
+			song.forEach(e=>{
+				s = e.seek()
+				if (s - seekThreshold > t || s + seekThreshold < t){
+					e.seek(t);
+				}
+			})
+		},1000)
 	},{once:true,capture:true})
 }
 
