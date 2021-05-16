@@ -11,10 +11,6 @@ var sliderIndicator = document.getElementsByClassName('volumeIndicator');
 sliderIndicator = [].slice.call(sliderIndicator);
 
 icon.forEach((e,i)=>{
-	if(urlParams.get('gif') !== null){
-		e.src = e.src.replace('.jpg', '.gif')
-	}
-
 	e.addEventListener('click',()=>{
 		if(volume[i]>0){
 			state[i] = !state[i];
