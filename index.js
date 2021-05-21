@@ -108,7 +108,9 @@ function start(){
 				title: 'Travelers',
 				artist: 'Andrew Prahlow',
 				album: 'Outer Wilds',
-				artwork: [],
+				artwork: [
+					{src:'/favicon.ico',sizes:'940x940',type:'image/x-icon'}
+				]
 			});
 
 			navigator.mediaSession.setActionHandler('play',()=>{
