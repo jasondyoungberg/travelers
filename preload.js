@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-const fadeTime = parseInt(urlParams.get('fade')||'1000',10);
+const fadeSpeed = parseFloat(urlParams.get('fade')||'0.2');
 const seekThreshold = parseFloat(urlParams.get('seek')||'0.01');
 
 var state = localStorage.state || 'false,false,false,false,false,false';

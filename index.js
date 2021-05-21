@@ -10,24 +10,17 @@ slider = [].slice.call(slider);
 var sliderIndicator = document.getElementsByClassName('volumeIndicator');
 sliderIndicator = [].slice.call(sliderIndicator);
 
+var playing = false;
+
 icon.forEach((e,i)=>{
 	e.addEventListener('click',()=>{
 		if(volume[i]>0){
 			state[i] = !state[i];
 			localStorage.state = state;
 	
-			var vCurrent = song[i].volume() || 0;
-			var vTarget = volume[i];
-	
 			if(state[i]){ // starting
-				song[i].fade(vCurrent,vTarget,
-					fadeTime * (vTarget - vCurrent) / vTarget);
-	
 				div[i].classList.add('on');
 			}else{ // ending
-				song[i].fade(vCurrent,0,
-					fadeTime * vCurrent / vTarget);
-	
 				div[i].classList.remove('on');
 			}
 		}
@@ -79,10 +72,8 @@ volume.forEach((e,i)=>{
 function start(){
 	document.getElementById('loader').innerHTML='Click to start';
 	document.addEventListener('click',()=>{
-		song.forEach((e,i)=>{
-			e.play();
-			if(state[i])e.fade(0,volume[i],fadeTime);
-		})
+		playing = true;
+		song.forEach(e=>e.play());
 		document.getElementById('loader').remove();
 
 		setInterval(()=>{
@@ -100,6 +91,14 @@ function start(){
 				}
 			})
 		},1000)
+
+		setInterval(()=>{
+			song.forEach((e,i)=>{
+				var v = e.volume();
+				var t = state[i]?volume[i]:0;
+				e.volume(v+fadeSpeed*(t-v))
+			});
+		},100);
 	},{once:true,capture:true})
 }
 
