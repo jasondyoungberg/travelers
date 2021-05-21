@@ -82,7 +82,6 @@ function start(){
 		setInterval(()=>{
 			song.forEach(e=>{
 				if(!e.playing()){
-					console.log(e)
 					e.play()
 				}
 			})
