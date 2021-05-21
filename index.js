@@ -7,6 +7,9 @@ div = [].slice.call(div);
 var slider = document.getElementsByClassName('volume');
 slider = [].slice.call(slider);
 
+var silence = document.getElementById('silence');
+var loader = document.getElementById('loader');
+
 var sliderIndicator = document.getElementsByClassName('volumeIndicator');
 sliderIndicator = [].slice.call(sliderIndicator);
 
@@ -70,15 +73,16 @@ volume.forEach((e,i)=>{
 });
 
 function start(){
-	document.getElementById('loader').innerHTML='Click to start';
+	loader.innerHTML='Click to start';
 	document.addEventListener('click',()=>{
 		playing = true;
 		song.forEach(e=>e.play());
-		document.getElementById('loader').remove();
+		loader.classList.add('hidden');
 
 		setInterval(()=>{
 			song.forEach(e=>{
 				if(!e.playing()){
+					console.log(e)
 					e.play()
 				}
 			})
@@ -95,11 +99,45 @@ function start(){
 		setInterval(()=>{
 			song.forEach((e,i)=>{
 				var v = e.volume();
-				var t = state[i]?volume[i]:0;
+				var t = (state[i]&&playing)?volume[i]:0;
 				e.volume(v+fadeSpeed*(t-v))
 			});
 		},100);
-	},{once:true,capture:true})
+
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.metadata = new MediaMetadata({
+				title: 'Travelers',
+				artist: 'Andrew Prahlow',
+				album: 'Outer Wilds',
+				artwork: [],
+			});
+
+			navigator.mediaSession.setActionHandler('play',()=>{
+				playing = true;
+				silence.play();
+			});
+
+			navigator.mediaSession.setActionHandler('pause',()=>{
+				playing = false;
+				silence.pause();
+			});
+
+			navigator.mediaSession.setActionHandler('stop',()=>{
+				playing = false;
+				song.forEach(e=>e.volume(0));
+				loader.classList.remove('hidden');
+				loader.innerHTML='Click to resume';
+				document.addEventListener('click',()=>{
+					playing = true;
+					silence.play();
+					loader.classList.add('hidden');
+				},{once:true,capture:true});
+			});
+			
+			silence.play();
+			silence.volume = 0;
+		}
+	},{once:true,capture:true});
 }
 
 function wait(){

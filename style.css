@@ -17,6 +17,10 @@ body {
 	cursor: pointer;
 }
 
+.loading.hidden {
+	display: none;
+}
+
 .loading p {
 	font-size: 5rem;
 	margin: 0;
@@ -24,6 +28,10 @@ body {
 
 .loading + .main {
 	display: none;
+}
+
+.loading.hidden + .main {
+	display: flex;
 }
 
 .main {
