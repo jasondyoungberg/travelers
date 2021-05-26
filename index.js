@@ -86,13 +86,8 @@ function start(){
 				}
 			})
 
-			t = song[0].seek();
-			song.forEach(e=>{
-				s = e.seek()
-				if (s - seekThreshold > t || s + seekThreshold < t){
-					e.seek(t);
-				}
-			})
+			var t = song[0].seek();
+			song.forEach(e=>e.seek(t));
 		},1000)
 
 		setInterval(()=>{
