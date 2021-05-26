@@ -109,7 +109,7 @@ function start(){
 				artist: 'Andrew Prahlow',
 				album: 'Outer Wilds',
 				artwork: [
-					{src:'/favicon.ico',sizes:'940x940',type:'image/x-icon'}
+					{src:'favicon.ico',sizes:'940x940',type:'image/x-icon'}
 				]
 			});
 
