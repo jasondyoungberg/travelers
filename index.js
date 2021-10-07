@@ -39,7 +39,7 @@ slider.forEach((e,i)=>{
 		volume[i] = e.value;
 
 		sliderIndicator[i].innerHTML = Math.round(100*e.value)+'%';
-		sliderIndicator[i].style.marginLeft = (520*e.value)+'px';
+		sliderIndicator[i].style.marginLeft = (320*e.value)+'px';
 
 
 		localStorage.volume = volume;
